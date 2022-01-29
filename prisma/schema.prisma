@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -27,50 +24,53 @@ generator nestgraphql {
 }
 
 model App {
-  id        Int          @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @updatedAt @map("updated_at")
-  chatbots  AppChatbot[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
+  chatbots Chatbot[]
   @@map("app")
 }
 
 model Chatbot {
-  id        Int          @id @default(autoincrement())
+  id        Int              @id @default(autoincrement())
   name      String
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @updatedAt @map("updated_at")
-  apps      AppChatbot[]
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
   channels  Channel[]
+  appId     Int              @map("app_id")
+  app       App              @relation(fields: [appId], references: [id])
+  messages  ChatbotMessage[]
 
   @@map("chatbot")
 }
 
-model AppChatbot {
-  id        Int     @id @default(autoincrement())
-  appId     Int     @map("app_id")
-  app       App     @relation(fields: [appId], references: [id])
-  chatbotId Int     @map("chatbot_id")
-  chatbot   Chatbot @relation(fields: [chatbotId], references: [id])
-
-  @@map("app_chatbot")
+model ChatbotMessage {
+  id        BigInt   @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  chatbotId Int      @map("chatbot_id")
+  chatbot   Chatbot  @relation(fields: [chatbotId], references: [id])
 }
 
 model Provider {
-  id   Int    @id @default(autoincrement())
-  name String
+  id       Int       @id @default(autoincrement())
+  name     String
+  channels Channel[]
 
   @@map("provider")
 }
 
 model Channel {
   id         Int      @id @default(autoincrement())
-  name       String
   accountSid String   @map("account_sid")
   authToken  String   @map("auth_token")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
+  providerId Int
+  provider   Provider @relation(fields: [providerId], references: [id])
   chatbotId  Int      @map("chatbot_id")
   chatbot    Chatbot  @relation(fields: [chatbotId], references: [id])
 
