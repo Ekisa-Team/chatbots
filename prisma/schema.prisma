@@ -53,26 +53,28 @@ model ChatbotMessage {
   updatedAt DateTime @updatedAt @map("updated_at")
   chatbotId Int      @map("chatbot_id")
   chatbot   Chatbot  @relation(fields: [chatbotId], references: [id])
+
+  @@map("chatbot_message")
 }
 
-model Provider {
+model MessagingProvider {
   id       Int       @id @default(autoincrement())
   name     String
   channels Channel[]
 
-  @@map("provider")
+  @@map("messaging_provider")
 }
 
 model Channel {
-  id         Int      @id @default(autoincrement())
-  accountSid String   @map("account_sid")
-  authToken  String   @map("auth_token")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-  providerId Int
-  provider   Provider @relation(fields: [providerId], references: [id])
-  chatbotId  Int      @map("chatbot_id")
-  chatbot    Chatbot  @relation(fields: [chatbotId], references: [id])
+  id                  Int               @id @default(autoincrement())
+  accountSid          String            @map("account_sid")
+  authToken           String            @map("auth_token")
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+  messagingProviderId Int               @map("messaging_provider_id")
+  messagingProvider   MessagingProvider @relation(fields: [messagingProviderId], references: [id])
+  chatbotId           Int               @map("chatbot_id")
+  chatbot             Chatbot           @relation(fields: [chatbotId], references: [id])
 
   @@map("channel")
 }
