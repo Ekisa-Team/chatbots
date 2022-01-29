@@ -1,4 +1,6 @@
+import { TransportMessage } from 'src/types/transport-message.type';
+
 export interface ChannelStrategy {
   validate: () => boolean;
-  sendMessage: () => Promise<void>;
+  sendMessage: (transport: TransportMessage) => Promise<void>;
 }

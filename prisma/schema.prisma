@@ -34,19 +34,19 @@ model App {
 }
 
 model Chatbot {
-  id        Int              @id @default(autoincrement())
-  name      String
-  createdAt DateTime         @default(now()) @map("created_at")
-  updatedAt DateTime         @updatedAt @map("updated_at")
-  channels  Channel[]
-  appId     Int              @map("app_id")
-  app       App              @relation(fields: [appId], references: [id])
-  messages  ChatbotMessage[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  channels         Channel[]
+  appId            Int               @map("app_id")
+  app              App               @relation(fields: [appId], references: [id])
+  templateMessages TemplateMessage[]
 
   @@map("chatbot")
 }
 
-model ChatbotMessage {
+model TemplateMessage {
   id        BigInt   @id @default(autoincrement())
   message   String
   createdAt DateTime @default(now()) @map("created_at")
@@ -54,12 +54,12 @@ model ChatbotMessage {
   chatbotId Int      @map("chatbot_id")
   chatbot   Chatbot  @relation(fields: [chatbotId], references: [id])
 
-  @@map("chatbot_message")
+  @@map("template_message")
 }
 
 model MessagingProvider {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String    @unique
   channels Channel[]
 
   @@map("messaging_provider")
@@ -67,6 +67,7 @@ model MessagingProvider {
 
 model Channel {
   id                  Int               @id @default(autoincrement())
+  cellphone           String
   accountSid          String            @map("account_sid")
   authToken           String            @map("auth_token")
   createdAt           DateTime          @default(now()) @map("created_at")
