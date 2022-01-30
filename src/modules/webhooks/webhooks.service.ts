@@ -1,9 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { switchMap } from 'rxjs';
 import { CryptService } from 'src/crypt/crypt.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { WebhookPayloadDto } from './dto/webhook-payload.dto';
-
 @Injectable()
 export class WebhooksService {
   constructor(
@@ -45,6 +45,52 @@ export class WebhooksService {
       this.httpService.post(callbackUrl, payload).subscribe();
     } else {
       this.httpService.put(callbackUrl, payload).subscribe();
+    }
+  }
+
+  mockAppointmentResponse(to: string, response: string): void {
+    const payload = { to };
+
+    switch (response) {
+      case '1':
+        this.httpService
+          .post(
+            'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/3/send',
+            payload,
+          )
+          .subscribe();
+        break;
+      case '2':
+        this.httpService
+          .post(
+            'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/4/send',
+            payload,
+          )
+          .subscribe();
+        break;
+      default:
+        this.httpService
+          .post(
+            'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/5/send',
+            payload,
+          )
+          .pipe(
+            switchMap(() =>
+              this.httpService.post(
+                'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/6/send',
+                {
+                  ...payload,
+                  variables: {
+                    name: 'Juan',
+                    date: '23 de Febrero',
+                    time: '5:00 PM',
+                  },
+                },
+              ),
+            ),
+          )
+          .subscribe();
+        break;
     }
   }
 }

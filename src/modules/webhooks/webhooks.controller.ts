@@ -29,4 +29,11 @@ export class WebhooksController {
   mockPut(@Req() request: Request): void {
     console.log('PUT WEBHOOK', request.body);
   }
+
+  @Post('mock_appointment_response')
+  mockAppointmentResponse(@Req() request: Request): void {
+    console.log('MOCK APPOINTMENT WEBHOOK', request.body);
+    const { from: to, body: response } = request.body;
+    this.webhooksService.mockAppointmentResponse(to, response.trim());
+  }
 }
