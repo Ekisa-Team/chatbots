@@ -25,7 +25,8 @@ generator nestgraphql {
 
 model App {
   id        Int      @id @default(autoincrement())
-  name      String
+  /// @Validator.IsNotEmpty()
+  name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -35,10 +36,10 @@ model App {
 
 model Chatbot {
   id               Int               @id @default(autoincrement())
-  name             String
+  accessKey        String            @unique @map("access_key")
   createdAt        DateTime          @default(now()) @map("created_at")
   updatedAt        DateTime          @updatedAt @map("updated_at")
-  channels         Channel[]
+  channel          Channel?
   appId            Int               @map("app_id")
   app              App               @relation(fields: [appId], references: [id])
   templateMessages TemplateMessage[]
@@ -47,7 +48,9 @@ model Chatbot {
 }
 
 model TemplateMessage {
-  id        BigInt   @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  /// @Validator.IsNotEmpty()
+  /// @Validator.MaxLength(300)
   message   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -59,6 +62,7 @@ model TemplateMessage {
 
 model MessagingProvider {
   id       Int       @id @default(autoincrement())
+  /// @Validator.IsNotEmpty()
   name     String    @unique
   channels Channel[]
 
@@ -67,14 +71,22 @@ model MessagingProvider {
 
 model Channel {
   id                  Int               @id @default(autoincrement())
+  /// @Validator.IsNotEmpty()
   cellphone           String
+  /// @Validator.IsNotEmpty()
   accountSid          String            @map("account_sid")
+  /// @Validator.IsNotEmpty()
   authToken           String            @map("auth_token")
+  /// @Validator.IsNotEmpty()
+  httpVerb            String            @map("http_verb")
+  /// @Validator.IsNotEmpty()
+  /// @Validator.IsUrl()
+  callbackUrl         String            @map("callback_url")
   createdAt           DateTime          @default(now()) @map("created_at")
   updatedAt           DateTime          @updatedAt @map("updated_at")
   messagingProviderId Int               @map("messaging_provider_id")
   messagingProvider   MessagingProvider @relation(fields: [messagingProviderId], references: [id])
-  chatbotId           Int               @map("chatbot_id")
+  chatbotId           Int               @unique @map("chatbot_id")
   chatbot             Chatbot           @relation(fields: [chatbotId], references: [id])
 
   @@map("channel")

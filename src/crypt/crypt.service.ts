@@ -14,11 +14,13 @@ export class CryptService {
 
   constructor(private configService: ConfigService) {}
 
-  hashPassword(password: string): Promise<string> {
-    return hash(password, this.bcryptSaltRounds);
+  generateAccessKey(appId: number, chatbotId: number): Promise<string> {
+    const composed = `${appId}-${chatbotId}`;
+    return hash(composed, this.bcryptSaltRounds);
   }
 
-  validatePassword(password: string, hashedPassword: string): Promise<boolean> {
-    return compare(password, hashedPassword);
+  validateAccessKey(appId: number, chatbotId: number, hashedKey: string): Promise<boolean> {
+    const composed = `${appId}-${chatbotId}`;
+    return compare(composed, hashedKey);
   }
 }

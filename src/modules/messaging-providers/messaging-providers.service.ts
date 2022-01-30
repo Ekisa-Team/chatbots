@@ -5,13 +5,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class MessagingProvidersService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
   getProvider(): Promise<MessagingProvider[]> {
-    return this.prismaService.messagingProvider.findMany();
+    return this.prisma.messagingProvider.findMany();
   }
 
   createProvider(data: MessagingProviderCreateInput): Promise<MessagingProvider> {
-    return this.prismaService.messagingProvider.create({ data });
+    return this.prisma.messagingProvider.create({ data });
   }
 }
