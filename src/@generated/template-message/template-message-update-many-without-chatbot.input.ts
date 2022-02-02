@@ -21,9 +21,6 @@ export class TemplateMessageUpdateManyWithoutChatbotInput {
     upsert?: Array<TemplateMessageUpsertWithWhereUniqueWithoutChatbotInput>;
 
     @Field(() => [TemplateMessageWhereUniqueInput], {nullable:true})
-    connect?: Array<TemplateMessageWhereUniqueInput>;
-
-    @Field(() => [TemplateMessageWhereUniqueInput], {nullable:true})
     set?: Array<TemplateMessageWhereUniqueInput>;
 
     @Field(() => [TemplateMessageWhereUniqueInput], {nullable:true})
@@ -31,6 +28,9 @@ export class TemplateMessageUpdateManyWithoutChatbotInput {
 
     @Field(() => [TemplateMessageWhereUniqueInput], {nullable:true})
     delete?: Array<TemplateMessageWhereUniqueInput>;
+
+    @Field(() => [TemplateMessageWhereUniqueInput], {nullable:true})
+    connect?: Array<TemplateMessageWhereUniqueInput>;
 
     @Field(() => [TemplateMessageUpdateWithWhereUniqueWithoutChatbotInput], {nullable:true})
     update?: Array<TemplateMessageUpdateWithWhereUniqueWithoutChatbotInput>;

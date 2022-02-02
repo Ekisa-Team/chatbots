@@ -33,7 +33,9 @@ export class WebhooksController {
   @Post('mock_appointment_response')
   mockAppointmentResponse(@Req() request: Request): void {
     console.log('MOCK APPOINTMENT WEBHOOK', request.body);
+    const url = `${request.protocol}://${request.rawHeaders[1]}/api/v1`;
+    console.log(url);
     const { from: to, body: response } = request.body;
-    this.webhooksService.mockAppointmentResponse(to, response.trim());
+    this.webhooksService.mockAppointmentResponse(url, to, response.trim());
   }
 }

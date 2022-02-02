@@ -34,6 +34,6 @@ export class Chatbot {
     @Field(() => [TemplateMessage], {nullable:true})
     templateMessages?: Array<TemplateMessage>;
 
-    @Field(() => ChatbotCount, {nullable:true})
-    _count?: ChatbotCount | null;
+    @Field(() => ChatbotCount, {nullable:false})
+    _count?: ChatbotCount;
 }

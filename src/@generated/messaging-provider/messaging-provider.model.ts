@@ -16,6 +16,6 @@ export class MessagingProvider {
     @Field(() => [Channel], {nullable:true})
     channels?: Array<Channel>;
 
-    @Field(() => MessagingProviderCount, {nullable:true})
-    _count?: MessagingProviderCount | null;
+    @Field(() => MessagingProviderCount, {nullable:false})
+    _count?: MessagingProviderCount;
 }

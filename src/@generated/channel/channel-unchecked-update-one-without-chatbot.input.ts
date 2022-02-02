@@ -18,14 +18,14 @@ export class ChannelUncheckedUpdateOneWithoutChatbotInput {
     @Field(() => ChannelUpsertWithoutChatbotInput, {nullable:true})
     upsert?: ChannelUpsertWithoutChatbotInput;
 
-    @Field(() => ChannelWhereUniqueInput, {nullable:true})
-    connect?: ChannelWhereUniqueInput;
-
     @Field(() => Boolean, {nullable:true})
     disconnect?: boolean;
 
     @Field(() => Boolean, {nullable:true})
     delete?: boolean;
+
+    @Field(() => ChannelWhereUniqueInput, {nullable:true})
+    connect?: ChannelWhereUniqueInput;
 
     @Field(() => ChannelUpdateWithoutChatbotInput, {nullable:true})
     update?: ChannelUpdateWithoutChatbotInput;
