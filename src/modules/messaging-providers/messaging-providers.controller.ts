@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { MessagingProvider } from '@prisma/client';
+import { MessagingProviderCreateInput } from 'src/@generated/messaging-provider/messaging-provider-create.input';
+import { MessagingProvider } from 'src/@generated/messaging-provider/messaging-provider.model';
 import { MessagingProvidersService } from './messaging-providers.service';
 
 @Controller({
@@ -15,7 +16,7 @@ export class MessagingProvidersController {
   }
 
   @Post()
-  createProvider(@Body() data: MessagingProvider): Promise<MessagingProvider> {
+  createProvider(@Body() data: MessagingProviderCreateInput): Promise<MessagingProvider> {
     return this.messagingProvidersService.createProvider(data);
   }
 }

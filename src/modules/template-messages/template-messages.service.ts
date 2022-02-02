@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { TemplateMessage } from '@prisma/client';
 import { TemplateMessageCreateInput } from 'src/@generated/template-message/template-message-create.input';
+import { TemplateMessage } from 'src/@generated/template-message/template-message.model';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TwilioStrategy } from 'src/strategies/channel/twilio.strategy';
 import { TransportMessage } from 'src/types/transport-message.type';
