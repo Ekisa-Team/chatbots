@@ -21,9 +21,6 @@ export class ChatbotUncheckedUpdateManyWithoutAppInput {
     upsert?: Array<ChatbotUpsertWithWhereUniqueWithoutAppInput>;
 
     @Field(() => [ChatbotWhereUniqueInput], {nullable:true})
-    connect?: Array<ChatbotWhereUniqueInput>;
-
-    @Field(() => [ChatbotWhereUniqueInput], {nullable:true})
     set?: Array<ChatbotWhereUniqueInput>;
 
     @Field(() => [ChatbotWhereUniqueInput], {nullable:true})
@@ -31,6 +28,9 @@ export class ChatbotUncheckedUpdateManyWithoutAppInput {
 
     @Field(() => [ChatbotWhereUniqueInput], {nullable:true})
     delete?: Array<ChatbotWhereUniqueInput>;
+
+    @Field(() => [ChatbotWhereUniqueInput], {nullable:true})
+    connect?: Array<ChatbotWhereUniqueInput>;
 
     @Field(() => [ChatbotUpdateWithWhereUniqueWithoutAppInput], {nullable:true})
     update?: Array<ChatbotUpdateWithWhereUniqueWithoutAppInput>;

@@ -21,9 +21,6 @@ export class ChannelUpdateManyWithoutMessagingProviderInput {
     upsert?: Array<ChannelUpsertWithWhereUniqueWithoutMessagingProviderInput>;
 
     @Field(() => [ChannelWhereUniqueInput], {nullable:true})
-    connect?: Array<ChannelWhereUniqueInput>;
-
-    @Field(() => [ChannelWhereUniqueInput], {nullable:true})
     set?: Array<ChannelWhereUniqueInput>;
 
     @Field(() => [ChannelWhereUniqueInput], {nullable:true})
@@ -31,6 +28,9 @@ export class ChannelUpdateManyWithoutMessagingProviderInput {
 
     @Field(() => [ChannelWhereUniqueInput], {nullable:true})
     delete?: Array<ChannelWhereUniqueInput>;
+
+    @Field(() => [ChannelWhereUniqueInput], {nullable:true})
+    connect?: Array<ChannelWhereUniqueInput>;
 
     @Field(() => [ChannelUpdateWithWhereUniqueWithoutMessagingProviderInput], {nullable:true})
     update?: Array<ChannelUpdateWithWhereUniqueWithoutMessagingProviderInput>;

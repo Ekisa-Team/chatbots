@@ -48,45 +48,34 @@ export class WebhooksService {
     }
   }
 
-  mockAppointmentResponse(to: string, response: string): void {
+  mockAppointmentResponse(url: string, to: string, response: string): void {
+    console.log(url);
     const payload = { to };
 
     switch (response) {
       case '1':
         this.httpService
-          .post(
-            'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/3/send',
-            payload,
-          )
+          .post(`${url}/apps/1/chatbots/1/template_messages/3/send`, payload)
           .subscribe();
         break;
       case '2':
         this.httpService
-          .post(
-            'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/4/send',
-            payload,
-          )
+          .post(`${url}/apps/1/chatbots/1/template_messages/4/send`, payload)
           .subscribe();
         break;
       default:
         this.httpService
-          .post(
-            'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/5/send',
-            payload,
-          )
+          .post(`${url}/apps/1/chatbots/1/template_messages/5/send`, payload)
           .pipe(
             switchMap(() =>
-              this.httpService.post(
-                'https://343e-181-131-18-240.ngrok.io/api/v1/apps/1/chatbots/1/template_messages/6/send',
-                {
-                  ...payload,
-                  variables: {
-                    name: 'Juan',
-                    date: '23 de Febrero',
-                    time: '5:00 PM',
-                  },
+              this.httpService.post(`${url}/apps/1/chatbots/1/template_messages/6/send`, {
+                ...payload,
+                variables: {
+                  name: '[Name]',
+                  date: '23 de Febrero',
+                  time: '5:00 PM',
                 },
-              ),
+              }),
             ),
           )
           .subscribe();

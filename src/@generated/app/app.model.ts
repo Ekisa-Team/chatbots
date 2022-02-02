@@ -22,6 +22,6 @@ export class App {
     @Field(() => [Chatbot], {nullable:true})
     chatbots?: Array<Chatbot>;
 
-    @Field(() => AppCount, {nullable:true})
-    _count?: AppCount | null;
+    @Field(() => AppCount, {nullable:false})
+    _count?: AppCount;
 }
